@@ -4,14 +4,14 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"time"
 	"sync"
+	"time"
 )
 
 type Crawler struct {
 	spiders       []ISpider
 	SpiderTimeout time.Duration
-	wg sync.WaitGroup
+	wg            sync.WaitGroup
 }
 
 func NewCrawler() *Crawler {
@@ -51,7 +51,7 @@ func (c *Crawler) Request(method string, url string) (content []byte, err error)
 
 func (c *Crawler) RunSpider(spider ISpider) {
 	defer c.wg.Done()
-	
+
 	log.Println("==================================")
 	log.Printf("Work on spider <%s>", spider.GetName())
 	log.Println("==================================")
@@ -67,12 +67,12 @@ func (c *Crawler) RunSpider(spider ISpider) {
 	var method = "GET"
 	for {
 		select {
-		case url := <- urls:
+		case url := <-urls:
 			content, _ := c.Request(method, url)
 			spider.ParseItem(content, items)
-		case <- errs:
+		case <-errs:
 			c.ItemPipeline(spider)
-			c.AfterHook(spider)			
+			c.AfterHook(spider)
 			return
 		case <-timeout:
 			log.Printf("[%s]: Pool of urls is empty...", spider.GetName())
@@ -82,7 +82,6 @@ func (c *Crawler) RunSpider(spider ISpider) {
 		}
 	}
 }
-
 
 func (c *Crawler) BeforeHook(spider ISpider) {
 	err := spider.DoBefore()
@@ -107,9 +106,9 @@ func (c *Crawler) ItemPipeline(spider ISpider) {
 
 	for {
 		select {
-		case item := <- items:
+		case item := <-items:
 			go spider.Pipeline(item)
-		case <- timeout:
+		case <-timeout:
 			return
 		}
 	}

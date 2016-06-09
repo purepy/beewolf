@@ -1,8 +1,8 @@
 package ship
 
 import (
-	"time"
 	"log"
+	"time"
 )
 
 type Spider struct {
@@ -13,6 +13,7 @@ type Spider struct {
 
 	errs chan error
 }
+
 /*
 包含了一个爬虫的基本组成
 StartUrl为起始url，Urls用于接收url爬取器的输出，Items用于接收解析器的输出结果
@@ -27,7 +28,7 @@ func NewSpider(name string, startUrl string, urlMax int, itemMax int) *Spider {
 		StartUrl: startUrl,
 		Urls:     urls,
 		Items:    items,
-		errs: errs,
+		errs:     errs,
 	}
 }
 

@@ -4,9 +4,9 @@ import (
 	"beewolf/ship"
 	"encoding/json"
 	"fmt"
-	"sync/atomic"
 	"io/ioutil"
 	"net/http"
+	"sync/atomic"
 )
 
 type PandaReturn struct {
@@ -23,7 +23,7 @@ type PandaRoom struct {
 
 type PandaSpider struct {
 	*ship.Spider
-	Index string
+	Index       string
 	TotalPerson int64
 }
 

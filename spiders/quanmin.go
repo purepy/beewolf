@@ -4,9 +4,9 @@ import (
 	"beewolf/ship"
 	"encoding/json"
 	"fmt"
-	"sync/atomic"
 	"io/ioutil"
 	"net/http"
+	"sync/atomic"
 )
 
 type QuanminReturn struct {
@@ -26,7 +26,7 @@ type QuanminRoom struct {
 
 type QuanminSpider struct {
 	*ship.Spider
-	Index string
+	Index       string
 	TotalPerson int64
 }
 

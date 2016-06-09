@@ -4,9 +4,9 @@ import (
 	"beewolf/ship"
 	"encoding/json"
 	"fmt"
-	"sync/atomic"
 	"io/ioutil"
 	"net/http"
+	"sync/atomic"
 )
 
 type HuyaReturn struct {
@@ -25,7 +25,7 @@ type HuyaRoom struct {
 
 type HuyaSpider struct {
 	*ship.Spider
-	Index string
+	Index       string
 	TotalPerson int64
 }
 
@@ -83,7 +83,7 @@ func (tv *HuyaSpider) Pipeline(item interface{}) interface{} {
 }
 
 func (tv *HuyaSpider) DoAfter() error {
-	fmt.Printf("[%s]: 当前在线%d人\n",tv.Name, tv.TotalPerson)
+	fmt.Printf("[%s]: 当前在线%d人\n", tv.Name, tv.TotalPerson)
 	close(tv.Urls)
 	close(tv.Items)
 	return nil
